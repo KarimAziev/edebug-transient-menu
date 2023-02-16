@@ -1,0 +1,53 @@
+* edebug-transient-menu
+
+Transient Menus For Edebug Commands.
+
+** Installation
+
+Emacs >= 28.1 is required.
+
+*** Manual
+
+Download the source code and put it wherever you like, e.g. into =~/.emacs.d/edebug-transient-menu/=:
+
+#+begin_src shell :eval no
+git clone https://github.com/KarimAziev/edebug-transient-menu.git ~/.emacs.d/edebug-transient-menu/
+#+end_src
+
+Add the downloaded directory to the load path:
+
+#+begin_src elisp :eval no
+(add-to-list 'load-path "~/.emacs.d/edebug-transient-menu/")
+(require 'edebug-transient-menu)
+#+end_src
+
+#+begin_src elisp :eval no
+(use-package edebug-transient-menu
+  :straight (edebug-transient-menu
+             :repo "KarimAziev/edebug-transient-menu"
+             :type git
+             :host github))
+#+end_src
+
+** Usage
+
+*** ~M-x edebug-transient-menu RET~
+
+Dispatch main menu:
+
+
+[[./edebug-demo.png]]
+
+*** Other menus:
+
+**** ~edebug-transient-menu-options~
+Command dispatcher for edebug options.
+**** ~edebug-transient-menu-eval~
+Menu for Edebug evaluation commands.
+**** ~edebug-transient-menu-views~
+Menu for Edebug view commands.
+**** ~edebug-transient-menu-breaks~
+Menu for Edebug breakpoint commands.
+**** ~edebug-transient-menu-jumps~
+Menu for Edebug jumps commands..
+
