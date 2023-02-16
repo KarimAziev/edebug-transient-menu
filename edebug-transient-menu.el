@@ -31,16 +31,16 @@
 
 (require 'edebug)
 
-;;;###autoload (autoload 'edebug-transient-menu-jumps-dispatch-menu-transient "edebug-transient-menu.el" nil t)
-(transient-define-prefix edebug-transient-menu-jumps-dispatch-menu-transient ()
+;;;###autoload (autoload 'edebug-transient-menu-jumps "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu-jumps ()
   "Menu for Edebug jumps commands.."
   [("f" "Forward Sexp" edebug-forward-sexp)
    ("s" "Step In" edebug-step-in)
    ("t" "Step Out" edebug-step-out)
    ("g" "Goto Here" edebug-goto-here)])
 
-;;;###autoload (autoload 'edebug-transient-menu-breaks-dispatch-menu-transient "edebug-transient-menu-elisp.el" nil t)
-(transient-define-prefix edebug-transient-menu-breaks-dispatch-menu-transient ()
+;;;###autoload (autoload 'edebug-transient-menu-breaks "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu-breaks ()
   "Menu for Edebug breakpoint commands."
   [("s" "Set Breakpoint" edebug-set-breakpoint)
    ("u" "Unset Breakpoint" edebug-unset-breakpoint)
@@ -49,8 +49,9 @@
    ("e" "Set Conditional Breakpoint" edebug-set-conditional-breakpoint)
    ("g" "Set Global Break Condition" edebug-set-global-break-condition)
    ("h" "Show Next Breakpoint" edebug-next-breakpoint :transient t)])
-;;;###autoload (autoload 'edebug-transient-menu-views-dispatch-menu-transient "edebug-transient-menu-elisp.el" nil t)
-(transient-define-prefix edebug-transient-menu-views-dispatch-menu-transient ()
+
+;;;###autoload (autoload 'edebug-transient-menu-views "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu-views ()
   "Menu for Edebug view commands."
   [("w" "Where am I?" edebug-where)
    ("b" "Bounce to Current Point" edebug-bounce-point)
@@ -58,14 +59,16 @@
    ("p" "Previous Result" edebug-previous-result)
    ("s" "Show Backtrace" edebug-pop-to-backtrace)
    ("d" "Display Freq Count" edebug-display-freq-count)])
-;;;###autoload (autoload 'edebug-transient-menu-eval-dispatch-menu-transient "edebug-transient-menu-elisp.el" nil t)
-(transient-define-prefix edebug-transient-menu-eval-dispatch-menu-transient ()
+
+;;;###autoload (autoload 'edebug-transient-menu-eval "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu-eval ()
   "Menu for Edebug evaluation commands."
   [("e" "Expression" edebug-eval-expression)
    ("l" "Last Sexp" edebug-eval-last-sexp)
    ("v" "Visit Eval List" edebug-visit-eval-list)])
 
-(transient-define-suffix edebug-transient-menu-edebug-trace ()
+;;;###autoload (autoload 'edebug-transient-menu-toggle-trace "edebug-transient-menu.el" nil t)
+(transient-define-suffix edebug-transient-menu-toggle-trace ()
   "Toggle value of the variable `edebug-trace'."
   :transient t
   :description
@@ -79,6 +82,7 @@
   (when (fboundp 'edebug-toggle)
     (edebug-toggle 'edebug-trace)))
 
+;;;###autoload (autoload 'edebug-transient-menu-toggle-edebug-test-coverage "edebug-transient-menu.el" nil t)
 (transient-define-suffix edebug-transient-menu-toggle-edebug-test-coverage ()
   "Toggle value of the variable `edebug-test-coverage'."
   :transient t
@@ -93,6 +97,7 @@
   (when (fboundp 'edebug-toggle)
     (edebug-toggle 'edebug-test-coverage)))
 
+;;;###autoload (autoload 'edebug-transient-menu-toggle-save-buffer-points "edebug-transient-menu.el" nil t)
 (transient-define-suffix edebug-transient-menu-toggle-save-buffer-points ()
   "Toggle `edebug-save-displayed-buffer-points'."
   :transient t
@@ -107,8 +112,8 @@
   (when (fboundp 'edebug-toggle)
     (edebug-toggle 'edebug-save-displayed-buffer-points)))
 
-;;;###autoload (autoload 'edebug-transient-menu-edebug-options "edebug-transient-menu-elisp.el" nil t)
-(transient-define-prefix edebug-transient-menu-edebug-options ()
+;;;###autoload (autoload 'edebug-transient-menu-options "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu-options ()
   "Command dispatcher for edebug options."
   [("e" edebug-all-defs
     :description
@@ -127,7 +132,7 @@
                 (propertize " (Off)" 'face 'error))))
     :transient t)
    ""
-   ("t" edebug-transient-menu-edebug-trace)
+   ("t" edebug-transient-menu-toggle-trace)
    ("c" edebug-transient-menu-toggle-edebug-test-coverage)
    ("s" edebug-toggle-save-windows
     :description
@@ -145,8 +150,8 @@
     :transient t)
    ("p" edebug-transient-menu-toggle-save-buffer-points)])
 
-;;;###autoload (autoload 'edebug-transient-menu-edebug-menu-transient "edebug-transient-menu-elisp.el" nil t)
-(transient-define-prefix edebug-transient-menu-edebug-menu-transient ()
+;;;###autoload (autoload 'edebug-transient-menu "edebug-transient-menu.el" nil t)
+(transient-define-prefix edebug-transient-menu ()
   "Command dispatcher for edebug."
   [:description
    (lambda ()
@@ -163,17 +168,16 @@
     ("c" "Continue" edebug-continue-mode :transient t)
     ("F" "Continue Fast" edebug-Continue-fast-mode :transient t)
     ("g" "Go" edebug-go-mode :transient t)
-    ("p" "Go Nonstop" edebug-Go-nonstop-mode :transient t)
-    ""
-    ("h" "Help" edebug-help)
+    ("p" "Go Nonstop" edebug-Go-nonstop-mode :transient t)]
+   [("h" "Help" edebug-help)
     ("b" "Abort" abort-recursive-edit)
     ("q" "Quit to Top Level" top-level)
     ("u" "Quit Nonstop" edebug-top-level-nonstop)]
-   [("J" "Jumps" edebug-transient-menu-jumps-dispatch-menu-transient)
-    ("B" "Breaks" edebug-transient-menu-breaks-dispatch-menu-transient)
-    ("V" "Views" edebug-transient-menu-views-dispatch-menu-transient)
-    ("E" "Eval" edebug-transient-menu-eval-dispatch-menu-transient)
-    ("o" "Options" edebug-transient-menu-edebug-options)]])
+   [("J" "Jumps" edebug-transient-menu-jumps)
+    ("B" "Breaks" edebug-transient-menu-breaks)
+    ("V" "Views" edebug-transient-menu-views)
+    ("E" "Eval" edebug-transient-menu-eval)
+    ("o" "Options" edebug-transient-menu-options)]])
 
 (provide 'edebug-transient-menu)
 ;;; edebug-transient-menu.el ends here
