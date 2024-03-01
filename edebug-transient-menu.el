@@ -29,6 +29,8 @@
 
 ;;; Code:
 
+(require 'transient)
+
 (require 'edebug)
 
 ;;;###autoload (autoload 'edebug-transient-menu-jumps "edebug-transient-menu.el" nil t)
